@@ -12,7 +12,7 @@ allow untrusted_app rootfs:file getattr;
 allow untrusted_app sensors_persist_file:dir getattr;
 allow untrusted_app sysfs:file { getattr open read };
 allow untrusted_app tombstone_data_file:dir getattr;
-allow untrusted_app cm_weather_service:service_manager find;
+allow untrusted_app mk_weather_service:service_manager find;
 allow untrusted_app adbsecure_prop:file { getattr open };
 allow untrusted_app adbtcp_prop:file { getattr open };
 allow untrusted_app coresight_prop:file { getattr open };
