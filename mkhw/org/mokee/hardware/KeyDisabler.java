@@ -1,6 +1,5 @@
 /*
- * Copyright (C) 2015 The CyanogenMod Project
- * Copyright (C) 2015 The MoKee Open Source Project
+ * Copyright (C) 2016 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,14 +29,14 @@ import org.mokee.internal.util.FileUtils;
 
 public class KeyDisabler {
 
-    private static String CONTROL_PATH = "/sys/devices/f9924000.i2c/i2c-2/2-005d/keypad_enable";
+    private static String CONTROL_PATH = "/data/tp/keypad_enable";
 
-    public static boolean isSupported() { 
+    public static boolean isSupported() {
         return FileUtils.isFileWritable(CONTROL_PATH);
     }
 
     public static boolean isActive() {
-        return (FileUtils.readOneLine(CONTROL_PATH).equals("0"));
+        return FileUtils.readOneLine(CONTROL_PATH).equals("0");
     }
 
     public static boolean setActive(boolean state) {

@@ -1,5 +1,9 @@
 #!/system/bin/sh
 
-country="$(getprop persist.sys.country)"
-setprop ro.build.target_country $country
+country="$(getprop persist.sys.locale)"
+#setprop ro.build.target_country $country
 
+#settings put global captive_portal_server g.cn
+#settings put global captive_portal_detection_enabled 0
+
+echo 127 > /sys/class/leds/red/max_brightness

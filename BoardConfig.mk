@@ -14,45 +14,38 @@
 # limitations under the License.
 
 # inherit from the proprietary version
--include vendor/zte/nx507j/BoardConfigVendor.mk
+-include vendor/nubia/nx507j/BoardConfigVendor.mk
 
-LOCAL_PATH := device/zte/nx507j
+LOCAL_PATH := device/nubia/nx507j
 
 PRODUCT_COPY_FILES := $(filter-out frameworks/base/data/keyboards/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
 	frameworks/base/data/keyboards/Generic.kl:system/usr/keylayout/Generic.kl \
 	frameworks/base/data/keyboards/Generic.kcm:system/usr/keychars/Generic.kcm, $(PRODUCT_COPY_FILES))
 
-
-# QCRIL
+# RIL
 TARGET_RIL_VARIANT := caf
-SIM_COUNT := 2
-TARGET_GLOBAL_CFLAGS += -DANDROID_MULTI_SIM
-TARGET_GLOBAL_CPPFLAGS += -DANDROID_MULTI_SIM
-COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
-COMMON_GLOBAL_CPPFLAGS += -DNO_SECURE_DISCARD
-FEATURE_QCRIL_UIM_SAP_SERVER_MODE := true
 PROTOBUF_SUPPORTED := true
 
 # Assert
 TARGET_OTA_ASSERT_DEVICE := NX507J,nx507j,mk_NX507J,mk_nx507j,NX507j,jNX507
 
 # Partitions
-TARGET_USERIMAGES_USE_EXT4 := true
-TARGET_USERIMAGES_USE_F2FS := true
 BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
+BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 25165824
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1610612736
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 12738083840
+
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := MSM8974
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
+BOARD_VENDOR := zte-qcom
 
 # Platform
 TARGET_BOARD_PLATFORM := msm8974
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno330
-USE_CLANG_PLATFORM_BUILD := true
 
 # Architecture
 TARGET_ARCH := arm
@@ -72,14 +65,15 @@ TARGET_KRAIT_BIONIC_PLDSIZE := 64
 
 # Kernel
 BOARD_DTBTOOL_ARGS := --force-v2
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom user_debug=23 msm_rtb.filter=0x37 ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1 androidboot.selinux=permissive
 BOARD_KERNEL_SEPARATED_DT := true
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000 --tags_offset 0x01E00000
-TARGET_KERNEL_SOURCE := kernel/zte/nx507j
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := $(ANDROID_BUILD_TOP)/prebuilts/gcc/linux-x86/arm/arm-cortex_a15-linux-gnueabihf-linaro_4.9/bin/arm-cortex_a15-linux-gnueabihf-
+TARGET_KERNEL_SOURCE := kernel/nubia/nx507j
 TARGET_KERNEL_ARCH := arm
-TARGET_KERNEL_CONFIG := mokee_nx507j_defconfig
+TARGET_KERNEL_CONFIG := mk-nx507j_nomodules_defconfig
 TARGET_ZTEMT_DTS := true
 
 # Power
@@ -89,13 +83,12 @@ TARGET_POWERHAL_VARIANT := qcom
 BOARD_USES_ALSA_AUDIO := true
 AUDIO_FEATURE_ENABLED_NEW_SAMPLE_RATE := true
 AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
-#AUDIO_FEATURE_ENABLED_FLUENCE := true
-AUDIO_FEATURE_ENABLED_EXTERNAL_SPEAKER := true
-AUDIO_FEATURE_ENABLED_USBAUDIO := true
+#AUDIO_FEATURE_ENABLED_EXTERNAL_SPEAKER := true
+#AUDIO_FEATURE_ENABLED_USBAUDIO := true
 AUDIO_FEATURE_LOW_LATENCY_PRIMARY := true
-AUDIO_FEATURE_ENABLED_LOW_LATENCY_CAPTURE := true
-#AUDIO_FEATURE_ENABLED_ANC_HEADSET := true
-AUDIO_FEATURE_ENABLED_HWDEP_CAL := true
+AUDIO_FEATURE_ENABLED_ANC_HEADSET := true
+#AUDIO_FEATURE_ENABLED_LOW_LATENCY_CAPTURE := true
+#AUDIO_FEATURE_ENABLED_HWDEP_CAL := true
 USE_CUSTOM_AUDIO_POLICY := 1
 
 # FM
@@ -143,8 +136,12 @@ EXTENDED_FONT_FOOTPRINT := true
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
 # Camera
+TARGET_SPECIFIC_HEADER_PATH := device/nubia/nx507j/include
 USE_DEVICE_SPECIFIC_CAMERA := true
-COMMON_GLOBAL_CFLAGS += -DCAMERA_VENDOR_L_COMPAT
+BOARD_GLOBAL_CFLAGS += -DCAMERA_VENDOR_L_COMPAT
+TARGET_HAS_LEGACY_CAMERA_HAL1 := true
+TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
+TARGET_USE_COMPAT_GRALLOC_ALIGN := true
 
 # RPC
 TARGET_NO_RPC := true
@@ -152,27 +149,30 @@ TARGET_NO_RPC := true
 # MKHW
 TARGET_TAP_TO_WAKE_NODE := "/data/tp/easy_wakeup_gesture"
 BOARD_USES_MOKEE_HARDWARE := true
-BOARD_HARDWARE_CLASS := \
-    $(LOCAL_PATH)/mkhw \
-    hardware/mokee/mkhw
+BOARD_HARDWARE_CLASS += \
+    hardware/mokee/mkhw \
+    device/nubia/nx507j/mkhw
 
 # Encryption
-TARGET_HW_DISK_ENCRYPTION := false
+TARGET_HW_DISK_ENCRYPTION := true
+
+# Init msm8974
+TARGET_INIT_VENDOR_LIB := libinit_msm8974
+TARGET_RECOVERY_DEVICE_MODULES := libinit_msm8974
 
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
 
 # Charger
-#WITH_CM_CHARGER := false
 BOARD_NO_CHARGER_LED := true
-#BOARD_CHARGER_SHOW_PERCENTAGE := true
+BOARD_CHARGER_SHOW_PERCENTAGE := true
 BOARD_CHARGER_ENABLE_SUSPEND := true
-#BOARD_CHARGER_DISABLE_INIT_BLANK := true
+BOARD_CHARGER_DISABLE_INIT_BLANK := true
 BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
-#BOARD_HAL_STATIC_LIBRARIES += libhealthd.msm8974
 
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 131072
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 
 # Qualcomm support
 BOARD_USES_QCOM_HARDWARE := true
@@ -188,8 +188,6 @@ BOARD_HOSTAPD_DRIVER := NL80211
 BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_qcwcn
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_qcwcn
-WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/wlan.ko"
-WIFI_DRIVER_MODULE_NAME := "wlan"
 WIFI_DRIVER_FW_PATH_STA := "sta"
 WIFI_DRIVER_FW_PATH_AP := "ap"
 TARGET_USES_WCNSS_CTRL := true
@@ -197,31 +195,21 @@ TARGET_USES_QCOM_WCNSS_QMI := true
 TARGET_PROVIDES_WCNSS_QMI := true
 
 # Recovery
-#RECOVERY_VARIANT := twrp
-ifneq ($(RECOVERY_VARIANT),twrp)
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery/recovery.fstab
-else
-TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery/twrp.fstab
-TW_THEME := portrait_hdpi
-RECOVERY_GRAPHICS_FORCE_USE_LINELENGTH := true
-TW_NO_USB_STORAGE := true
-TW_INCLUDE_CRYPTO := true
-TW_SCREEN_BLANK_ON_BOOT := true
-BOARD_SUPPRESS_SECURE_ERASE := true
-RECOVERY_SDCARD_ON_DATA := true
-BOARD_HAS_NO_REAL_SDCARD := true
+BOARD_NO_SECURE_DISCARD := true
+BOARD_SUPPRESS_EMMC_WIPE := true
 BOARD_HAS_NO_SELECT_BUTTON := true
+BOARD_RECOVERY_SWIPE := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
-
-endif
+TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
 
 # dex-preoptimization to speed up first boot sequence
 WITH_DEXPREOPT := false
 
-SKIP_BOOT_JARS_CHECK := true
+#SKIP_BOOT_JARS_CHECK := true
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
-BOARD_SEPOLICY_DIRS += device/zte/nx507j/sepolicy
+BOARD_SEPOLICY_DIRS += device/nubia/nx507j/sepolicy
 

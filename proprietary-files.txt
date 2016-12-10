@@ -81,7 +81,7 @@ bin/mm-qcamera-app
 bin/mm-qcamera-daemon
 lib/hw/camera.msm8974.so:lib/hw/camera.msm8974.so
 lib/libqomx_core.so
-lib/libOmxVdecHevc.so
+#lib/libOmxVdecHevc.so
 lib/libchromatix_imx135_069_liveshot.so
 lib/libchromatix_imx135_front_liveshot.so
 lib/libchromatix_imx135_gbao_lc898122_liveshot.so
@@ -95,15 +95,18 @@ lib/libchromatix_t4k35_liveshot.so
 lib/libmm-qcamera.so
 lib/libmmcamera_interface.so
 lib/libmmjpeg_interface.so
-lib/libmorpho_image_converter.so
-lib/libmorpho_jpeg_io.so
-lib/libmorpho_memory_allocator.so
-lib/libmorpho_strobe_photo_jni.so
+#lib/libmorpho_image_converter.so
+#lib/libmorpho_jpeg_io.so
+#lib/libmorpho_memory_allocator.so
+#lib/libmorpho_strobe_photo_jni.so
 lib/libcurl_camera.so
 lib/libFNVfbEngineLib.so
+lib/libFNVfbEngineHAL.so
 lib/libImageAlogrithm.so
 lib/libSFB.so
-lib/libbuffer_manager.so
+lib/libnubia_effect.so
+lib/libnubiajpeg.so
+#lib/libbuffer_manager.so
 
 # Graphics
 vendor/lib/egl/eglsubAndroid.so
@@ -113,15 +116,15 @@ vendor/lib/egl/libGLESv2_adreno.so
 vendor/lib/egl/libq3dtools_adreno.so
 
 # DRM
+#blobs from Bacon
 bin/qseecomd
-#blobs from hammerhead MM
 vendor/lib/drm/libdrmwvmplugin.so
 vendor/lib/mediadrm/libwvdrmengine.so
 vendor/lib/libdrmdecrypt.so
-vendor/lib/libwvdrm_L1.so
+vendor/lib/libwvdrm_L3.so
 vendor/lib/libwvm.so
 vendor/lib/libWVphoneAPI.so
-vendor/lib/libWVStreamControlAPI_L1.so
+vendor/lib/libWVStreamControlAPI_L3.so
 
 # Audio
 vendor/lib/soundfx/libqcbassboost.so
@@ -170,6 +173,7 @@ vendor/lib/hw/sensors.msm8974.so
 # Thermal
 vendor/bin/thermal-engine
 
+
 #vendor lib
 vendor/lib/libacdbloader.so
 vendor/lib/libacdbmapper.so
@@ -205,13 +209,12 @@ vendor/lib/libactuator_zte_rohm_bu64291gwz_z7_front_camera.so
 vendor/lib/libadiertac.so
 vendor/lib/libadreno_utils.so
 vendor/lib/libadsprpc.so
-vendor/lib/libalarmservice_jni.so
+#vendor/lib/libalarmservice_jni.so
 vendor/lib/libaudcal.so
 vendor/lib/libbtnv.so
+vendor/lib/libbccQTI.so
 vendor/lib/libC2D2.so
 vendor/lib/libc2d30-a3xx.so
-vendor/lib/libc2d30-a4xx.so
-vendor/lib/libc2d30.so
 vendor/lib/libCB.so
 vendor/lib/libchromatix_imx132_common.so
 vendor/lib/libchromatix_imx132_default_video.so
@@ -292,6 +295,7 @@ vendor/lib/libchromatix_imx214_default_video_4k.so
 vendor/lib/libchromatix_imx214_default_video.so
 vendor/lib/libchromatix_imx214_hfr_120.so
 vendor/lib/libchromatix_imx214_nightmode_1.so
+vendor/lib/libchromatix_imx214_nightmode_2.so
 vendor/lib/libchromatix_imx214_nightmode.so
 vendor/lib/libchromatix_imx214_ois_sharp_common.so
 vendor/lib/libchromatix_imx214_ois_sharp_default_video_4k.so
@@ -300,6 +304,7 @@ vendor/lib/libchromatix_imx214_ois_sharp_hfr_120.so
 vendor/lib/libchromatix_imx214_ois_sharp_hfr_60.so
 vendor/lib/libchromatix_imx214_ois_sharp_liveshot.so
 vendor/lib/libchromatix_imx214_ois_sharp_nightmode_1.so
+vendor/lib/libchromatix_imx214_ois_sharp_nightmode_2.so
 vendor/lib/libchromatix_imx214_ois_sharp_nightmode.so
 vendor/lib/libchromatix_imx214_ois_sharp_preview.so
 vendor/lib/libchromatix_imx214_ois_sharp_previewzsl.so
@@ -535,13 +540,13 @@ vendor/lib/libmsapm_jni.so
 vendor/lib/libnetmgr.so
 vendor/lib/libNimsWrap.so
 vendor/lib/liboemcamera.so
-vendor/lib/libOmxAacDec.so
-vendor/lib/libOmxAmrwbplusDec.so
-vendor/lib/libOmxEvrcDec.so
-vendor/lib/libOmxMux.so
-vendor/lib/libOmxQcelp13Dec.so
-vendor/lib/libOmxWmaDec.so
-#vendor/lib/libOpenCL.so
+##vendor/lib/libOmxAacDec.so
+##vendor/lib/libOmxAmrwbplusDec.so
+##vendor/lib/libOmxEvrcDec.so
+##vendor/lib/libOmxMux.so
+##vendor/lib/libOmxQcelp13Dec.so
+##vendor/lib/libOmxWmaDec.so
+vendor/lib/libOpenCL.so
 vendor/lib/libperipheral_client.so
 vendor/lib/libpfecommon.so
 vendor/lib/libprofiler_msmadc.so
